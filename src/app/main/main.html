@@ -1,0 +1,26 @@
+<div class="container">
+
+  <div>
+    <nav class="navbar navbar-static-top navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand">
+            <span class="glyphicon glyphicon-fire"></span> Schema Visualizer
+          </a>
+        </div>
+    
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="schema url" ng-model="main.url" ng-model-options="{ debounce: 1000 }" ng-change="main.load()">
+            </div>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <span ng-show="main.loading">Loading...</span>
+
+  <div id="mainImg" ng-bind-html="main.svg"></div>
+</div>
