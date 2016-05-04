@@ -8,17 +8,17 @@ Everything gets displayed as a node with directed edges pointing to the inner no
 
 Run npm and gulp and you should be good to go.
 
-``bash
+```bash
 npm install
 gulp serve
-``
+```
 
 ## Deploy
 
 Build everything using gulp and deploy the dist folder.
 
-``bash
+```bash
 npm install
 gulp build
 rsync --recursive dist/ production.example.com:/path/to/webroot
-``
+```
