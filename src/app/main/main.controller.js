@@ -7,7 +7,7 @@
 
 
   /** @ngInject */
-  function MainController($sce, vizJs, $http, $log) {
+  function MainController($sce, vizJs, $http, $log, toastr, $location) {
     var vm = this;
 
     // use a weakmap to generate ids for all the schema parts
@@ -50,18 +50,33 @@
 
     vm.load = function() {
       vm.loading = true;
+      if (!vm.url && $location.search().q) {
+        $log.info("Using URL from search", $location.search());
+        vm.url = $location.search().q;
+      }
       if (!vm.url) {
         $log.error("No schema URL given");
         vm.loading = false;
+        vm.error = true;
         return;
       }
       $http.get(vm.url).then(function(data) {
-        var graph = 'digraph { ' + extractNode(data.data, 0, 'root') + '}';
-        vm.svg = $sce.trustAsHtml(vizJs.render(graph));
-        vm.loading = false;
+        $location.search('q', vm.url);
+        try {
+            vm.loading = false;
+            var graph = 'digraph { ' + extractNode(data.data, 0, 'root') + '}';
+            vm.svg = $sce.trustAsHtml(vizJs.render(graph));
+            vm.error = false;
+            toastr.success('Schema loaded');
+        } catch (e) {
+            toastr.error('Failed to generate graph from url');
+        }
       }, function(err) {
+        $location.search('q', vm.url);
+        toastr.error('failed to load schema');
         $log.error(err);
         vm.loading = false;
+        vm.error = true;
       });
     };
 

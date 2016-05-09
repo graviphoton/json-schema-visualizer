@@ -20,5 +20,5 @@
 
   <span ng-show="main.loading">Loading...</span>
 
-  <div id="mainImg" ng-bind-html="main.svg"></div>
+  <div id="mainImg" ng-hide="main.error" ng-bind-html="main.svg"></div>
 </div>
