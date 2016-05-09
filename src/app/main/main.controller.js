@@ -20,6 +20,9 @@
     function extractNode(schema, parentId, name) {
       var retStr = '    ' + objectId(schema) + ' [label="' + name + '"];';
     
+      if (schema.type == 'object') {
+        retStr += '    ' + objectId(schema) + ' [shape=box];';
+      }
       if (schema.type == 'object' && !schema.properties) {
         retStr += '    ' + objectId(schema) + ' [style=filled, fillcolor=red];';
       }
