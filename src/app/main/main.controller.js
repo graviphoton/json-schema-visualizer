@@ -25,7 +25,7 @@
       }
       if (
           (schema.type == 'object' && !schema.properties) ||
-          (schema.type == 'array' && schema.items.type == 'object' && !schema.properties)
+          (schema.type == 'array' && schema.items.type == 'object' && !schema.items.properties)
       ) {
         retStr += '    ' + objectId(schema) + ' [style=filled, fillcolor=red];';
       }
